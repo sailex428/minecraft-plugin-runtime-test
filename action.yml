@@ -35,10 +35,7 @@ runs:
     - name: Setting up Java ${{ inputs.java-version }}
       uses: actions/setup-java@v4.2.1
       with:
-        distribution: 'adopt'
         java-version: ${{ inputs.java-version }}
-        java-package: jdk
-        architecture: x64
 
     - name: Use Node.js 20
       uses: actions/setup-node@v4.0.3

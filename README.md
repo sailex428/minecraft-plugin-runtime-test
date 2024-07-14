@@ -53,7 +53,8 @@ jobs:
       uses: actions/upload-artifact@v4.3.4
       with:
         name: artifact-${{ github.event.number }}
-        path: 'target/MyPluginJar*.jar' # Change this according to the location and filename of your packaged jar, you may use wildcards
+        path: 'build/libs/*.jar' # Change this according to the location and filename of your packaged jar, you may use wildcards
+        # path: 'target/MyPluginJar*.jar'
   
   runtime-test:
     name: Plugin Runtime Test 
