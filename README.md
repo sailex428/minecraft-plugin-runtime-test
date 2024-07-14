@@ -5,8 +5,8 @@ Github action for testing minecraft plugins initialization during server load on
 #### Prerequisite Steps (Building the plugin)
 1. Checkout repository (in the context of the action caller)
 2. Download plugin build artifact from previous workflow build job
-3. Set up Java 17
-4. Setup Node 16
+3. Set up Java 21
+4. Setup Node 20
 5. Execute index.js file
 #### index.js (When this action is called)
 1. Create and initialize ```eula.txt```
