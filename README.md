@@ -66,7 +66,7 @@ jobs:
         javaVersion: ['21']
     
     steps:        
-      - uses: sailex428/minecraft-plugin-runtime-test@v1.1.2 # specify action version, use latest as possible
+      - uses: sailex428/minecraft-plugin-runtime-test@v1.1.3 # specify action version, use latest as possible
         with:
           server-version: ${{ matrix.mcVersion }}
           java-version: ${{ matrix.javaVersion }}
