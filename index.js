@@ -3,13 +3,12 @@
 const https = require('https')
 const fsPromise = require('fs').promises
 const fs = require('fs')
-const childproc = require('child_process')
+const childProcess = require('child_process')
 
 async function main(){
     try {
         if(!process.env.SERVER_VERSION) {
             console.error(`Missing "SERVER_VERSION" env variable value! Exiting process with code 1.`)
-            
             process.exit(1)
         }
 
@@ -19,13 +18,13 @@ async function main(){
         const serverJarFileName = `${serverName}-${serverVersion}-${serverBuild}.jar`
         const serverJarUrl = `https://api.papermc.io/v2/projects/paper/versions/${serverVersion}/builds/${serverBuild}/downloads/${serverJarFileName}`
 
-        const slimefunJarUrl = 'https://thebusybiscuit.github.io/builds/TheBusyBiscuit/Slimefun4/master/Slimefun4-1081.jar'
+        const slimefunJarUrl = 'https://thebusybiscuit.github.io/builds/TheBusyBiscuit/Slimefun4/master/Slimefun4-1104.jar'
 
         await fsPromise.writeFile('server/eula.txt', "eula=true").catch((err) => console.log("error writing contents to eula.txt: " + err))
 
         await downloadJar(serverJarUrl, 'server/', serverJarFileName)
 
-        await downloadJar(slimefunJarUrl, 'server/plugins/' , 'Slimefun4-1081.jar')
+        await downloadJar(slimefunJarUrl, 'server/plugins/' , 'Slimefun4-1104.jar')
 
         runServer(serverJarFileName)
     } catch (error) {
@@ -91,7 +90,7 @@ function downloadJar(url, dir, jarFile){
 function runServer(jarFile){
     console.log("Jar file execution in progress!")
 
-    const child = childproc.spawn("java", ['-jar', `${jarFile}`, '--nogui'], { cwd:"server/" })
+    const child = childProcess.spawn("java", ['-jar', `${jarFile}`, '--nogui'], { cwd:"server/" })
     
     child.stdout.on('data', (data) => {
         console.log(data.toString())

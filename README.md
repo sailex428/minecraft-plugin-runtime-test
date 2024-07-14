@@ -1,7 +1,5 @@
 # Minecraft Plugin Runtime Test
 Github action for testing minecraft plugins initialization during server load on different versions of paper server.
-![image](https://github.com/FN-FAL113/minecraft-plugin-runtime-test/assets/88238718/5086ee38-b1a3-4860-961a-1929124db85c)
-
 
 ### How it works
 #### Prerequisite Steps (Building the plugin)
@@ -36,21 +34,26 @@ jobs:
 
     steps:
     - name: Checkout Repository
-      uses: actions/checkout@v2.3.3
+      uses: actions/checkout@v4.1.7
       
-    - name: Set up JDK 16
-      uses: actions/setup-java@v1.4.3
+    - name: Set up JDK 21
+      uses: actions/setup-java@v4.2.1
       with:
-        java-version: 16
+        java-version: 21
         
-    - name: Maven Build
-      run: mvn clean package --file pom.xml
+# Choose you're Build-Tool
+        
+    - name: Gradle build
+      run: gradle clean build
+      
+#    - name: Maven Build
+#      run: mvn clean package --file pom.xml
       
     - name: Upload the artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4.3.4
       with:
         name: artifact-${{ github.event.number }}
-        path: 'target/FNAmplifications*.jar' # Change this according to the location and filename of your packaged jar, you may use wildcards
+        path: 'target/MyPluginJar*.jar' # Change this according to the location and filename of your packaged jar, you may use wildcards
   
   runtime-test:
     name: Plugin Runtime Test 
@@ -58,20 +61,11 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        include:
-          - mcVersion: '1.16.5'
-            javaVersion: '16'
-          - mcVersion: '1.17.1'
-            javaVersion: '17'
-          - mcVersion: '1.18.2'
-            javaVersion: '18'
-          - mcVersion: '1.19.4'
-            javaVersion: '19'
-          - mcVersion: '1.20.1'
-            javaVersion: '20'  
+        mcVersion: ['1.20.1', '1.20.2', '1.20.4', '1.20.5', '1.20.6', '1.21']
+        javaVersion: ['21']
     
     steps:        
-      - uses: FN-FAL113/minecraft-plugin-runtime-test@v1.1.2 # specify action version, use latest as possible
+      - uses: sailex428/minecraft-plugin-runtime-test@v1.1.2 # specify action version, use latest as possible
         with:
           server-version: ${{ matrix.mcVersion }}
           java-version: ${{ matrix.javaVersion }}
@@ -81,4 +75,5 @@ jobs:
 ### Plugins Included by Default During Runtime
 - Slimefun
 
-Suggestions are open for plugins that depends on other plugins. This will be based off from a resource file soon in order to accomomdate more plugins or so this repo can be forked to support your plugins.
+Suggestions are open for plugins that depends on other plugins. 
+This will be based off from a resource file soon in order to accomomdate more plugins or so this repo can be forked to support your plugins.

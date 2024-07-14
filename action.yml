@@ -6,31 +6,34 @@ branding:
 inputs:
   server-version:
     required: true
+    description: "paper server version"
     default: '1.20.1'
   artifact-name:
     required: true
+    description: "artifact"
     default: ''
   java-version:
     required: true
-    default: '17'
+    description: "java version"
+    default: '21'
 
 runs:
   using: 'composite'
   steps:
     - name: Checking out Action Repository
-      uses: actions/checkout@v3.5.3
+      uses: actions/checkout@v4.1.7
       with:
-        repository: FN-FAL113/minecraft-plugin-runtime-test
+        repository: sailex428/minecraft-plugin-runtime-test
         ref: main
         
     - name: Download Plugin Build Artifact
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4.1.8
       with:
         name: ${{ inputs.artifact-name }}
         path: server/plugins/
 
     - name: Setting up Java ${{ inputs.java-version }}
-      uses: actions/setup-java@v3.11.0
+      uses: actions/setup-java@v4.2.1
       with:
         distribution: 'adopt'
         java-version: ${{ inputs.java-version }}
@@ -38,7 +41,7 @@ runs:
         architecture: x64
 
     - name: Use Node.js 16
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4.0.3
       with:
           node-version: '16.x'
 
