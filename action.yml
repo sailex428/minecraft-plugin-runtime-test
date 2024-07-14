@@ -36,6 +36,7 @@ runs:
       uses: actions/setup-java@v4.2.1
       with:
         java-version: ${{ inputs.java-version }}
+        distribution: 'adopt'
 
     - name: Use Node.js 20
       uses: actions/setup-node@v4.0.3
